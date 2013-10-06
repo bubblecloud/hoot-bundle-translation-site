@@ -101,6 +101,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
         context.setDescriptor(webappUrl + "/WEB-INF/web.xml");
         context.setResourceBase(webappUrl);
         context.setParentLoaderPriority(true);
+        context.getSessionHandler().getSessionManager().setSessionCookie("HOOTSESSIONID");
 
         server.setHandler(context);
         server.start();
