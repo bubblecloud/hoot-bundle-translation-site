@@ -128,12 +128,12 @@ public final class HootFields {
         HootFields.add(Entry.class, new FieldDescriptor(
                 "key", "Key",
                 TextField.class, null,
-                -1, null, String.class, "",
+                400, null, String.class, "",
                 true, true, true));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "value", "Value",
                 TextArea.class, null,
-                400, null, String.class, "",
+                -1, null, String.class, "",
                 false, true, true));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "author", "Author",

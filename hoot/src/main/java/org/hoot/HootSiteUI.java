@@ -168,7 +168,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
                 ))));
 
         viewDescriptors.add(new ViewDescriptor("dashboard", null, null, new ViewVersion(0, "master", "Dashboard", "",
-                "This is entries view.", FixedWidthView.class.getCanonicalName(), new String[]{"translator", "administrator"},
+                "This is entries view.", HootView.class.getCanonicalName(), new String[]{"translator", "administrator"},
                 Arrays.asList(new ViewletDescriptor(
                         "content", "Entries Viewlet", "This is Entries viewlet.", null,
                         EntryFlowViewlet.class.getCanonicalName())
