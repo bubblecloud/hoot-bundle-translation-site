@@ -256,7 +256,7 @@ public class HootSynchronizer {
                                     printWriter.println();
                                     printWriter.print(entry.getKey());
                                     printWriter.print("=");
-                                    final String value = entry.getValue().replace("\n", "\\\n");
+                                    final String value = entry.getValue().replace("\n", "\\n");
                                     printWriter.println(value);
                                 }
 
