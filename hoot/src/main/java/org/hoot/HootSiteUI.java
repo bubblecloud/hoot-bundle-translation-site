@@ -126,7 +126,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
         final ContentProvider contentProvider = this;
 
         final LocalizationProvider localizationProvider =
-                new LocalizationProviderBundleImpl(new String[] {"translation-site-localization",
+                new LocalizationProviderBundleImpl(new String[] {"hoot-localization",
                         "bare-site-localization"});
         BareSiteFields.initialize(localizationProvider, getLocale());
         HootFields.initialize(localizationProvider, getLocale());
@@ -166,7 +166,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
                                 CompanyFooterViewlet.class.getCanonicalName())
                 ))));
 
-        viewDescriptors.add(new ViewDescriptor("default", null, null, new ViewVersion(0, "master", "Entries", "",
+        viewDescriptors.add(new ViewDescriptor("dashboard", null, null, new ViewVersion(0, "master", "Dashboard", "",
                 "This is entries view.", FixedWidthView.class.getCanonicalName(), new String[]{"translator", "administrator"},
                 Arrays.asList(new ViewletDescriptor(
                         "content", "Entries Viewlet", "This is Entries viewlet.", null,
@@ -220,7 +220,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
                 ))));
 
         final NavigationDescriptor navigationDescriptor = new NavigationDescriptor("navigation", null, null,
-                new NavigationVersion(0, "default", "default;users;groups;companies;login", true));
+                new NavigationVersion(0, "dashboard", "dashboard;users;groups;companies;login", true));
 
         return new SiteDescriptor("Test site.", "test site", "This is a test site.",
                 navigationDescriptor, viewDescriptors);

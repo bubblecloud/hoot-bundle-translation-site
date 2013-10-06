@@ -21,7 +21,7 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>Vaadin Application Servlet</servlet-name>
-        <url-pattern>/site/*</url-pattern>
+        <url-pattern>/hoot/*</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Vaadin Application Servlet</servlet-name>

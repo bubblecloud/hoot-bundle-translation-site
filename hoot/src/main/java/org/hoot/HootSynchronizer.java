@@ -75,7 +75,7 @@ public class HootSynchronizer {
     public HootSynchronizer(final EntityManager entityManager) {
         this.entityManager = entityManager;
 
-        final long synchronizePeriodMillis = Long.parseLong(PropertiesUtil.getProperty("translation-site",
+        final long synchronizePeriodMillis = Long.parseLong(PropertiesUtil.getProperty("hoot",
                 "synchronize-period-millis"));
 
         thread = new Thread(new Runnable() {
@@ -112,10 +112,10 @@ public class HootSynchronizer {
     private void synchronize() {
         entityManager.clear();
 
-        executeShellCommand(PropertiesUtil.getProperty("translation-site", "pre-synchronize-command-hook"));
+        executeShellCommand(PropertiesUtil.getProperty("hoot", "pre-synchronize-command-hook"));
 
-        final String bundleCharacterSet = PropertiesUtil.getProperty("translation-site", "bundle-character-set");
-        final String[] prefixes = PropertiesUtil.getProperty("translation-site", "bundle-path-prefixes").split(",");
+        final String bundleCharacterSet = PropertiesUtil.getProperty("hoot", "bundle-character-set");
+        final String[] prefixes = PropertiesUtil.getProperty("hoot", "bundle-path-prefixes").split(",");
 
         for (final String prefixPart : prefixes) {
             final String prefix = prefixPart.split(":")[1];
@@ -277,7 +277,7 @@ public class HootSynchronizer {
                 }
             }
 
-            final String smtpHost = PropertiesUtil.getProperty("translation-site", "smtp-host");
+            final String smtpHost = PropertiesUtil.getProperty("hoot", "smtp-host");
             for (final String locale : missingKeys.keySet()) {
                 final List<String> keySet = missingKeys.get(locale);
 
@@ -303,7 +303,7 @@ public class HootSynchronizer {
 
         }
 
-        executeShellCommand(PropertiesUtil.getProperty("translation-site", "post-synchronize-command-hook"));
+        executeShellCommand(PropertiesUtil.getProperty("hoot", "post-synchronize-command-hook"));
 
     }
 
