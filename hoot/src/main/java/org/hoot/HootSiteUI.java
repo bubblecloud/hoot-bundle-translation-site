@@ -52,6 +52,7 @@ import org.vaadin.addons.sitekit.viewlet.anonymous.EmailValidationViewlet;
 import org.vaadin.addons.sitekit.viewlet.anonymous.ImageViewlet;
 import org.vaadin.addons.sitekit.viewlet.anonymous.NavigationViewlet;
 import org.vaadin.addons.sitekit.viewlet.anonymous.login.LoginFlowViewlet;
+import org.vaadin.addons.sitekit.viewlet.user.AccountFlowViewlet;
 import org.vaadin.addons.sitekit.web.BareSiteFields;
 
 import javax.persistence.EntityManager;
@@ -218,9 +219,18 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
                                 "content", "Email Validation", "This is email validation flowlet.", null,
                                 EmailValidationViewlet.class.getCanonicalName())
                 ))));
+        viewDescriptors.add(new ViewDescriptor("account", null, null, new ViewVersion(
+                0, "master", "Groom / Account", "account page", "This is account page.",
+                FixedWidthView.class.getCanonicalName(), new String[]{"user"},
+                Arrays.asList(
+                        new ViewletDescriptor(
+                                "content", "Flowlet Sheet", "This is flow sheet.", null,
+                                AccountFlowViewlet.class.getCanonicalName())
+                ))));
+
 
         final NavigationDescriptor navigationDescriptor = new NavigationDescriptor("navigation", null, null,
-                new NavigationVersion(0, "dashboard", "dashboard;users;groups;companies;login", true));
+                new NavigationVersion(0, "dashboard", "dashboard;account;users;groups;customers;companies;login", true));
 
         return new SiteDescriptor("Test site.", "test site", "This is a test site.",
                 navigationDescriptor, viewDescriptors);
