@@ -5,8 +5,16 @@
     <groupId>org.hoot</groupId>
     <artifactId>hoot-jetty</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.0</version>
+    <version>${global.version}</version>
     <name>hoot-jetty</name>
+
+    <parent>
+        <groupId>org.hoot</groupId>
+        <artifactId>hoot-root</artifactId>
+        <version>${global.version}</version>
+        <relativePath>..</relativePath>
+    </parent>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -72,6 +80,26 @@
                     <finalName>hoot-jetty</finalName>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>create-distribution</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <descriptors>
+                                <descriptor>assembly/linux-release.xml</descriptor>
+                                <descriptor>assembly/osx-release.xml</descriptor>
+                                <descriptor>assembly/windows-release.xml</descriptor>
+                            </descriptors>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
 
         </plugins>
     </build>
@@ -93,7 +121,7 @@
         <dependency>
             <groupId>org.hoot</groupId>
             <artifactId>hoot</artifactId>
-            <version>1.0.3</version>
+            <version>${global.version}</version>
         </dependency>
     </dependencies>
 

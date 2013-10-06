@@ -5,8 +5,16 @@
     <groupId>org.hoot</groupId>
     <artifactId>hoot</artifactId>
     <packaging>jar</packaging>
-    <version>1.0.3</version>
+    <version>${global.version}</version>
     <name>hoot</name>
+
+    <parent>
+        <groupId>org.hoot</groupId>
+        <artifactId>hoot-root</artifactId>
+        <version>${global.version}</version>
+        <relativePath>..</relativePath>
+    </parent>
+
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
