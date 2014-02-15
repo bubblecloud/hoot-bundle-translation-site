@@ -21,7 +21,7 @@ import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
 import org.vaadin.addons.sitekit.grid.FieldDescriptor;
 import org.vaadin.addons.sitekit.grid.field.TimestampField;
-import org.vaadin.addons.sitekit.grid.formatter.TimestampFormatter;
+import org.vaadin.addons.sitekit.grid.formatter.TimestampConverter;
 import org.vaadin.addons.sitekit.site.LocalizationProvider;
 
 import java.util.ArrayList;
@@ -143,12 +143,12 @@ public final class HootFields {
 
         HootFields.add(Entry.class, new FieldDescriptor(
                 "created", "Created",
-                TimestampField.class, TimestampFormatter.class,
+                TimestampField.class, new TimestampConverter(),
                 150, null, Date.class, null, true,
                 true, true));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "modified", "Modified",
-                TimestampField.class, TimestampFormatter.class,
+                TimestampField.class, new TimestampConverter(),
                 150, null, Date.class, null,
                 true, true, true));
 

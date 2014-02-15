@@ -25,21 +25,7 @@ import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.webapp.WebAppContext;
 import org.vaadin.addons.sitekit.dao.CompanyDao;
 import org.vaadin.addons.sitekit.model.Company;
-import org.vaadin.addons.sitekit.site.AbstractSiteUI;
-import org.vaadin.addons.sitekit.site.ContentProvider;
-import org.vaadin.addons.sitekit.site.FixedWidthView;
-import org.vaadin.addons.sitekit.site.LocalizationProvider;
-import org.vaadin.addons.sitekit.site.LocalizationProviderBundleImpl;
-import org.vaadin.addons.sitekit.site.NavigationDescriptor;
-import org.vaadin.addons.sitekit.site.NavigationVersion;
-import org.vaadin.addons.sitekit.site.SecurityProviderSessionImpl;
-import org.vaadin.addons.sitekit.site.Site;
-import org.vaadin.addons.sitekit.site.SiteContext;
-import org.vaadin.addons.sitekit.site.SiteDescriptor;
-import org.vaadin.addons.sitekit.site.SiteMode;
-import org.vaadin.addons.sitekit.site.ViewDescriptor;
-import org.vaadin.addons.sitekit.site.ViewVersion;
-import org.vaadin.addons.sitekit.site.ViewletDescriptor;
+import org.vaadin.addons.sitekit.site.*;
 import org.vaadin.addons.sitekit.util.PersistenceUtil;
 import org.vaadin.addons.sitekit.util.PropertiesUtil;
 import org.vaadin.addons.sitekit.viewlet.administrator.company.CompanyFlowViewlet;
@@ -47,13 +33,11 @@ import org.vaadin.addons.sitekit.viewlet.administrator.customer.CustomerFlowView
 import org.vaadin.addons.sitekit.viewlet.administrator.group.GroupFlowViewlet;
 import org.vaadin.addons.sitekit.viewlet.administrator.user.UserFlowViewlet;
 import org.vaadin.addons.sitekit.viewlet.anonymous.CompanyFooterViewlet;
-import org.vaadin.addons.sitekit.viewlet.anonymous.CompanyHeaderViewlet;
 import org.vaadin.addons.sitekit.viewlet.anonymous.EmailValidationViewlet;
 import org.vaadin.addons.sitekit.viewlet.anonymous.ImageViewlet;
-import org.vaadin.addons.sitekit.viewlet.anonymous.NavigationViewlet;
+import org.vaadin.addons.sitekit.viewlet.anonymous.VerticalNavigationViewlet;
 import org.vaadin.addons.sitekit.viewlet.anonymous.login.LoginFlowViewlet;
 import org.vaadin.addons.sitekit.viewlet.user.AccountFlowViewlet;
-import org.vaadin.addons.sitekit.web.BareSiteFields;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -67,7 +51,7 @@ import java.util.List;
  * @author Tommi S.E. Laukkanen
  */
 @SuppressWarnings({ "serial", "unchecked" })
-@Theme("eelis")
+@Theme("sitekit")
 public final class HootSiteUI extends AbstractSiteUI implements ContentProvider {
 
     /** The logger. */
@@ -83,7 +67,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
      * @throws Exception if exception occurs in jetty startup.
      */
     public static void main(final String[] args) throws Exception {
-        PropertiesUtil.setCategoryRedirection("bare-site", "hoot");
+        PropertiesUtil.setCategoryRedirection("site", PROPERTIES_CATEGORY);
         DOMConfigurator.configure("./log4j.xml");
 
         entityManagerFactory = PersistenceUtil.getEntityManagerFactory(PERSISTENCE_UNIT, PROPERTIES_CATEGORY);
@@ -130,7 +114,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
         final LocalizationProvider localizationProvider =
                 new LocalizationProviderBundleImpl(new String[] {"hoot-localization",
                         "bare-site-localization"});
-        BareSiteFields.initialize(localizationProvider, getLocale());
+        SiteFields.initialize(localizationProvider);
         HootFields.initialize(localizationProvider, getLocale());
 
         final SiteContext siteContext = new SiteContext();
@@ -161,9 +145,9 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
                         new ViewletDescriptor("logo", "Logo", "This is logo.", "logo.png",
                                 ImageViewlet.class.getCanonicalName()),
                         new ViewletDescriptor("header", "Header", "This is header.", null,
-                                CompanyHeaderViewlet.class.getCanonicalName()),
+                                ImageViewlet.class.getCanonicalName()),
                         new ViewletDescriptor("navigation", "NavigationDescriptor", "This is navigation.", null,
-                                NavigationViewlet.class.getCanonicalName()),
+                                VerticalNavigationViewlet.class.getCanonicalName()),
                         new ViewletDescriptor("footer", "Footer", "This is footer.", null,
                                 CompanyFooterViewlet.class.getCanonicalName())
                 ))));
