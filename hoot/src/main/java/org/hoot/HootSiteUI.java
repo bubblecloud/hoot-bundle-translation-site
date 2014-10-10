@@ -144,7 +144,7 @@ public final class HootSiteUI extends AbstractSiteUI implements ContentProvider 
                 Arrays.asList(
                         new ViewletDescriptor("logo", "Logo", "This is logo.", "logo.png",
                                 ImageViewlet.class.getCanonicalName()),
-                        new ViewletDescriptor("header", "Header", "This is header.", null,
+                        new ViewletDescriptor("header", "Header", "This is header.", "logo.png",
                                 ImageViewlet.class.getCanonicalName()),
                         new ViewletDescriptor("navigation", "NavigationDescriptor", "This is navigation.", null,
                                 VerticalNavigationViewlet.class.getCanonicalName()),

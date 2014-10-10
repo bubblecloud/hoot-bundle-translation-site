@@ -215,10 +215,11 @@ WITH (
 ALTER TABLE entry
   OWNER TO hoot;
 
+ALTER TABLE entry ADD COLUMN author character varying(1024);
+
 ALTER TABLE company ADD COLUMN url character varying(255);
 UPDATE COMPANY SET url = 'http://127.0.0.1:8083/groom';
 
-ALTER TABLE entry ADD COLUMN author character varying(1024);
 
 INSERT INTO schemaversion VALUES (NOW(), 'hoot', '0001');
 

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet author="tommilaukkanen (generated)" id="1412938286055-1">
+        <createTable tableName="entry">
+            <column name="entryid" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="country" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="created" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="key" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="language" type="VARCHAR(2)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="modified" type="TIMESTAMP WITH TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="value" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="owner_companyid" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="basename" type="VARCHAR(1024)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="path" type="VARCHAR(2048)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="author" type="VARCHAR(1024)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="tommilaukkanen (generated)" id="1412938286055-2">
+        <addPrimaryKey columnNames="entryid" constraintName="entry_pkey" tableName="entry"/>
+    </changeSet>
+    <changeSet author="tommilaukkanen (generated)" id="1412938286055-3">
+        <addForeignKeyConstraint baseColumnNames="owner_companyid" baseTableName="entry" constraintName="fk_entry_owner_companyid" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="companyid" referencedTableName="company"/>
+    </changeSet>
+</databaseChangeLog>

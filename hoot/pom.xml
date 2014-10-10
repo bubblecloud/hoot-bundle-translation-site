@@ -74,6 +74,26 @@
                     </archive>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.liquibase</groupId>
+                <artifactId>liquibase-maven-plugin</artifactId>
+                <version>3.0.8</version>
+                <configuration>
+                    <changeLogFile>src/main/resources/database/hoot/db.changelog-master.xml</changeLogFile>
+                    <diffChangeLogFile>src/main/resources/database/hoot/db.changelog-new.xml</diffChangeLogFile>
+                    <driver>org.postgresql.Driver</driver>
+                    <url>jdbc:postgresql://127.0.0.1:5432/hoot2</url>
+                    <username>hoot</username>
+                    <password>password</password>
+
+                    <referenceDriver>org.postgresql.Driver</referenceDriver>
+                    <referenceUrl>jdbc:postgresql://127.0.0.1:5432/hoot</referenceUrl>
+                    <referenceUsername>hoot</referenceUsername>
+                    <referencePassword>password</referencePassword>
+                    <promptOnNonLocalDatabase>false</promptOnNonLocalDatabase>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
