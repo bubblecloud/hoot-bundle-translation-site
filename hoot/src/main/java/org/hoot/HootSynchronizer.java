@@ -86,6 +86,8 @@ public class HootSynchronizer {
 
                 while (!shutdown) {
 
+                    synchronize();
+
                     while (System.currentTimeMillis() < lastTimeMillis + synchronizePeriodMillis) {
                         try {
                             Thread.sleep(100);
@@ -96,10 +98,9 @@ public class HootSynchronizer {
                             }
                         }
                     }
-
                     lastTimeMillis = System.currentTimeMillis();
                     lastTimeMillis = lastTimeMillis - lastTimeMillis % synchronizePeriodMillis;
-                    synchronize();
+
                 }
             }
         });
@@ -198,8 +199,8 @@ public class HootSynchronizer {
 
                             for (final Entry entry : entries) {
                                 if (keys.contains(entry.getKey())) {
-                                    if (candidate.equals(baseBundle) || (entry.getValue().length() == 0 && properties.containsKey(entry.getKey()) &&
-                                            ((String) properties.get(entry.getKey())).length() > 0)) {
+                                    if (entry.getValue().length() == 0 && properties.containsKey(entry.getKey()) &&
+                                            ((String) properties.get(entry.getKey())).length() > 0) {
                                         entry.setValue((String) properties.get(entry.getKey()));
                                         entityManager.persist(entry);
                                     }
@@ -243,33 +244,28 @@ public class HootSynchronizer {
                             }
                             entityManager.getTransaction().commit();
 
-                            if (!candidate.equals(baseBundle)) {
+                            final FileOutputStream fileOutputStream = new FileOutputStream(candidate, false);
+                            final OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream,
+                                    bundleCharacterSet);
+                            final PrintWriter printWriter = new PrintWriter(writer);
 
-                                final FileOutputStream fileOutputStream = new FileOutputStream(candidate, false);
-                                final OutputStreamWriter writer = new OutputStreamWriter(fileOutputStream,
-                                        bundleCharacterSet);
-                                final PrintWriter printWriter = new PrintWriter(writer);
-
-                                for (final Entry entry : query.getResultList()) {
-                                    printWriter.print("# Modified: ");
-                                    printWriter.print(format.format(entry.getModified()));
-                                    if (entry.getAuthor() != null) {
-                                        printWriter.print(" Author: ");
-                                        printWriter.print(entry.getAuthor());
-                                    }
-                                    printWriter.println();
-                                    printWriter.print(entry.getKey());
-                                    printWriter.print("=");
-                                    final String value = entry.getValue().replace("\n", "\\n");
-                                    printWriter.println(value);
+                            for (final Entry entry : query.getResultList()) {
+                                printWriter.print("# Modified: ");
+                                printWriter.print(format.format(entry.getModified()));
+                                if (entry.getAuthor() != null) {
+                                    printWriter.print(" Author: ");
+                                    printWriter.print(entry.getAuthor());
                                 }
-
-                                printWriter.flush();
-                                printWriter.close();
-                                fileOutputStream.close();
-
-
+                                printWriter.println();
+                                printWriter.print(entry.getKey());
+                                printWriter.print("=");
+                                final String value = entry.getValue().replace("\n", "\\n");
+                                printWriter.println(value);
                             }
+
+                            printWriter.flush();
+                            printWriter.close();
+                            fileOutputStream.close();
                         } catch (Exception e) {
                             if (entityManager.getTransaction().isActive()) {
                                 entityManager.getTransaction().rollback();

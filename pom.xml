@@ -51,7 +51,6 @@
 
     <modules>
         <module>hoot</module>
-        <module>hoot-jetty</module>
     </modules>
 
 </project>

@@ -90,10 +90,8 @@ public final class HootFields {
 
     /**
      * Initialize field descriptors if not done yet.
-     * @param localizationProvider the localization provider
-     * @param locale the locale
      */
-    public static synchronized void initialize(final LocalizationProvider localizationProvider, final Locale locale) {
+    public static synchronized void initialize() {
         if (initialized) {
             return;
         }
@@ -113,32 +111,32 @@ public final class HootFields {
         HootFields.add(Entry.class, new FieldDescriptor(
                 "basename", "Basename",
                 TextField.class, null,
-                200, null, String.class, "",
+                100, null, String.class, "",
                 true, true, true));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "language", "Language",
                 TextField.class, null,
-                25, null, String.class, "",
-                true, true, true));
+                75, null, String.class, "",
+                true, true, false));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "country", "Country",
                 TextField.class, null,
-                25, null, String.class, "",
+                75, null, String.class, "",
                 true, true, false));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "key", "Key",
                 TextField.class, null,
-                400, null, String.class, "",
+                -1, null, String.class, "",
                 true, true, true));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "value", "Value",
                 TextArea.class, null,
-                -1, null, String.class, "",
+                300, null, String.class, "",
                 false, true, true));
         HootFields.add(Entry.class, new FieldDescriptor(
                 "author", "Author",
                 TextField.class, null,
-                150, null, String.class, "",
+                100, null, String.class, "",
                 true, true, false));
 
         HootFields.add(Entry.class, new FieldDescriptor(

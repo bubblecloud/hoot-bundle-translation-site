@@ -85,6 +85,9 @@ public final class EntriesFlowlet extends AbstractFlowlet {
         filterDefinitions.add(new FilterDescriptor("key", "key", "Key", new TextField(),
                 200, "like", String.class, ""));
 
+        filterDefinitions.add(new FilterDescriptor("value", "value", "Value", new TextField(),
+                200, "like", String.class, ""));
+
         final EntityManager entityManager = getSite().getSiteContext().getObject(EntityManager.class);
         container = new LazyEntityContainer<Entry>(entityManager, true, true, false, Entry.class, 1000,
                 new String[] {"basename", "key", "language", "country"},
@@ -127,7 +130,7 @@ public final class EntriesFlowlet extends AbstractFlowlet {
                 entry.setCreated(new Date());
                 entry.setModified(entry.getCreated());
                 entry.setOwner((Company) getSite().getSiteContext().getObject(Company.class));
-                final EntryFlowlet entryView = getViewSheet().forward(EntryFlowlet.class);
+                final EntryFlowlet entryView = getFlow().forward(EntryFlowlet.class);
                 entryView.edit(entry, true);
             }
         });
@@ -141,7 +144,7 @@ public final class EntriesFlowlet extends AbstractFlowlet {
             @Override
             public void buttonClick(final ClickEvent event) {
                 final Entry entity = container.getEntity(grid.getSelectedItemId());
-                final EntryFlowlet entryView = getViewSheet().forward(EntryFlowlet.class);
+                final EntryFlowlet entryView = getFlow().forward(EntryFlowlet.class);
                 entryView.edit(entity, false);
             }
         });
