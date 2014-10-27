@@ -112,7 +112,11 @@ public class HootSynchronizer {
     private void synchronize() {
         entityManager.clear();
 
-        executeShellCommand(PropertiesUtil.getProperty("hoot", "pre-synchronize-command-hook"));
+        try {
+            executeShellCommand(PropertiesUtil.getProperty("hoot", "pre-synchronize-command-hook"));
+        } catch (final Exception e) {
+            LOGGER.error("Error running pre synchronize hook.",e);
+        }
 
         final String bundleCharacterSet = PropertiesUtil.getProperty("hoot", "bundle-character-set");
         final String[] prefixes = PropertiesUtil.getProperty("hoot", "bundle-path-prefixes").split(",");
@@ -303,7 +307,12 @@ public class HootSynchronizer {
 
         }
 
-        executeShellCommand(PropertiesUtil.getProperty("hoot", "post-synchronize-command-hook"));
+        try {
+            executeShellCommand(PropertiesUtil.getProperty("hoot", "post-synchronize-command-hook"));
+        } catch (final Exception e) {
+            LOGGER.error("Error running post synchronize hook.",e);
+
+        }
 
     }
 
