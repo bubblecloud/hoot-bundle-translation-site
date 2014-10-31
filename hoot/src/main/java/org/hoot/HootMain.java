@@ -46,6 +46,8 @@ public class HootMain {
         // The default Jetty server configuration.
         final Server server = DefaultJettyConfiguration.configureServer(PERSISTENCE_UNIT, LOCALIZATION_BUNDLE);
 
+        DefaultSiteUI.setSecurityProvider(new SecurityProviderSessionImpl("administrator", "user", "translator"));
+
         // Get default site descriptor.
         final SiteDescriptor siteDescriptor = DefaultSiteUI.getContentProvider().getSiteDescriptor();
 
@@ -53,11 +55,11 @@ public class HootMain {
 
         final String dashboardPage = "dashboard";
         // Describe custom view.
-        final ViewDescriptor commentView = new ViewDescriptor(dashboardPage, DefaultView.class);
-        commentView.setViewerRoles("administrator", "translator");
-        siteDescriptor.getViewDescriptors().add(commentView);
+        final ViewDescriptor dashboardView = new ViewDescriptor(dashboardPage, DefaultView.class);
+        dashboardView.setViewerRoles("administrator", "translator");
+        siteDescriptor.getViewDescriptors().add(dashboardView);
         // Place example viewlet to content slot in the view.
-        commentView.setViewletClass(Slot.CONTENT, EntryFlowViewlet.class);
+        dashboardView.setViewletClass(Slot.CONTENT, EntryFlowViewlet.class);
 
         // Add custom view to navigation.
         final NavigationVersion navigationVersion = siteDescriptor.getNavigationVersion();
