@@ -54,7 +54,7 @@ public class HootMain {
         final String dashboardPage = "dashboard";
         // Describe custom view.
         final ViewDescriptor commentView = new ViewDescriptor(dashboardPage, DefaultView.class);
-        commentView.setViewerRoles("administrator");
+        commentView.setViewerRoles("administrator", "translator");
         siteDescriptor.getViewDescriptors().add(commentView);
         // Place example viewlet to content slot in the view.
         commentView.setViewletClass(Slot.CONTENT, EntryFlowViewlet.class);
