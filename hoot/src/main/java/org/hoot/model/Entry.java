@@ -15,7 +15,7 @@
  */
 package org.hoot.model;
 
-import org.vaadin.addons.sitekit.model.Company;
+import org.bubblecloud.ilves.model.Company;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

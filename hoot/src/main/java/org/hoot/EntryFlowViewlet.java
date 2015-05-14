@@ -15,8 +15,9 @@
  */
 package org.hoot;
 
-import org.vaadin.addons.sitekit.flow.AbstractFlowViewlet;
-import org.vaadin.addons.sitekit.flow.Flowlet;
+
+import org.bubblecloud.ilves.component.flow.AbstractFlowViewlet;
+import org.bubblecloud.ilves.component.flow.Flowlet;
 
 /**
  * Entry management Flow.

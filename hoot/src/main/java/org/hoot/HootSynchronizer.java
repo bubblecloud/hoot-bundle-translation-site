@@ -15,15 +15,15 @@
  */
 package org.hoot;
 
+import org.bubblecloud.ilves.security.CompanyDao;
+import org.bubblecloud.ilves.security.UserDao;
 import org.hoot.model.Entry;
 import org.apache.log4j.Logger;
-import org.vaadin.addons.sitekit.dao.CompanyDao;
-import org.vaadin.addons.sitekit.dao.UserDao;
-import org.vaadin.addons.sitekit.model.Company;
-import org.vaadin.addons.sitekit.model.Group;
-import org.vaadin.addons.sitekit.model.User;
-import org.vaadin.addons.sitekit.util.EmailUtil;
-import org.vaadin.addons.sitekit.util.PropertiesUtil;
+import org.bubblecloud.ilves.model.Company;
+import org.bubblecloud.ilves.model.Group;
+import org.bubblecloud.ilves.model.User;
+import org.bubblecloud.ilves.util.EmailUtil;
+import org.bubblecloud.ilves.util.PropertiesUtil;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -294,8 +294,7 @@ public class HootSynchronizer {
                     for (final User user : users) {
                         LOGGER.info("Sending translation request to " + user.getEmailAddress() + " for " + locale +
                                 " keys " + keySet);
-                        EmailUtil.send(smtpHost,
-                                user.getEmailAddress(), company.getSupportEmailAddress(), subject, content);
+                        EmailUtil.send(user.getEmailAddress(), company.getSupportEmailAddress(), subject, content);
                     }
                 }
             }

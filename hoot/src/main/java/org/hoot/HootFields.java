@@ -15,14 +15,14 @@
  */
 package org.hoot;
 
+import org.bubblecloud.ilves.component.field.TimestampField;
+import org.bubblecloud.ilves.component.formatter.TimestampConverter;
 import org.hoot.model.Entry;
 import com.vaadin.data.Validator;
 import com.vaadin.ui.TextArea;
 import com.vaadin.ui.TextField;
-import org.vaadin.addons.sitekit.grid.FieldDescriptor;
-import org.vaadin.addons.sitekit.grid.field.TimestampField;
-import org.vaadin.addons.sitekit.grid.formatter.TimestampConverter;
-import org.vaadin.addons.sitekit.site.LocalizationProvider;
+import org.bubblecloud.ilves.component.grid.FieldDescriptor;
+import org.bubblecloud.ilves.site.LocalizationProvider;
 
 import java.util.ArrayList;
 import java.util.Collections;

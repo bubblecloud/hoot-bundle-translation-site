@@ -15,25 +15,22 @@
  */
 package org.hoot;
 
+import com.vaadin.ui.*;
 import org.hoot.model.Entry;
 import com.vaadin.data.util.BeanItem;
 import com.vaadin.data.util.filter.And;
 import com.vaadin.data.util.filter.Compare;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Table;
 import org.vaadin.addons.lazyquerycontainer.LazyEntityContainer;
-import org.vaadin.addons.sitekit.flow.AbstractFlowlet;
-import org.vaadin.addons.sitekit.grid.FieldDescriptor;
-import org.vaadin.addons.sitekit.grid.FilterDescriptor;
-import org.vaadin.addons.sitekit.grid.FormattingTable;
-import org.vaadin.addons.sitekit.grid.Grid;
-import org.vaadin.addons.sitekit.grid.ValidatingEditor;
-import org.vaadin.addons.sitekit.grid.ValidatingEditorStateListener;
-import org.vaadin.addons.sitekit.util.ContainerUtil;
+import org.bubblecloud.ilves.component.flow.AbstractFlowlet;
+import org.bubblecloud.ilves.component.grid.FieldDescriptor;
+import org.bubblecloud.ilves.component.grid.FilterDescriptor;
+import org.bubblecloud.ilves.component.grid.FormattingTable;
+import org.bubblecloud.ilves.component.grid.Grid;
+import org.bubblecloud.ilves.component.grid.ValidatingEditor;
+import org.bubblecloud.ilves.component.grid.ValidatingEditorStateListener;
+import org.bubblecloud.ilves.util.ContainerUtil;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;

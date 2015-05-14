@@ -1,0 +1,11 @@
+@import "ilves.scss";
+
+.v-generated-body {
+  margin: auto;
+  max-width: 4000px;
+  background-color: #333;
+}
+
+.ilves {
+  @include ilves;
+}

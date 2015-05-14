@@ -15,23 +15,19 @@
  */
 package org.hoot;
 
+import com.vaadin.ui.*;
+import org.bubblecloud.ilves.component.grid.FieldDescriptor;
+import org.bubblecloud.ilves.util.ContainerUtil;
 import org.hoot.model.Entry;
 import com.vaadin.data.util.filter.Compare;
-import com.vaadin.ui.Button;
 import com.vaadin.ui.Button.ClickEvent;
 import com.vaadin.ui.Button.ClickListener;
-import com.vaadin.ui.GridLayout;
-import com.vaadin.ui.HorizontalLayout;
-import com.vaadin.ui.Table;
-import com.vaadin.ui.TextField;
 import org.vaadin.addons.lazyquerycontainer.LazyEntityContainer;
-import org.vaadin.addons.sitekit.flow.AbstractFlowlet;
-import org.vaadin.addons.sitekit.grid.FieldDescriptor;
-import org.vaadin.addons.sitekit.grid.FilterDescriptor;
-import org.vaadin.addons.sitekit.grid.FormattingTable;
-import org.vaadin.addons.sitekit.grid.Grid;
-import org.vaadin.addons.sitekit.model.Company;
-import org.vaadin.addons.sitekit.util.ContainerUtil;
+import org.bubblecloud.ilves.component.flow.AbstractFlowlet;
+import org.bubblecloud.ilves.component.grid.FilterDescriptor;
+import org.bubblecloud.ilves.component.grid.FormattingTable;
+import org.bubblecloud.ilves.component.grid.Grid;
+import org.bubblecloud.ilves.model.Company;
 
 import javax.persistence.EntityManager;
 import java.util.ArrayList;
@@ -116,6 +112,8 @@ public final class EntriesFlowlet extends AbstractFlowlet {
         table.setColumnCollapsed("path", true);
         table.setColumnCollapsed("created", true);
         table.setColumnCollapsed("modified", true);
+        grid.setHeight(UI.getCurrent().getPage().getBrowserWindowHeight() - 250, Unit.PIXELS);
+
         gridLayout.addComponent(grid, 0, 1);
 
         final Button addButton = getSite().getButton("add");

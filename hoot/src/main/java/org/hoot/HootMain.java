@@ -16,10 +16,16 @@
 package org.hoot;
 
 import org.apache.log4j.Logger;
+import org.apache.log4j.xml.DOMConfigurator;
+import org.bubblecloud.ilves.Ilves;
+import org.bubblecloud.ilves.module.audit.AuditModule;
+import org.bubblecloud.ilves.module.content.ContentModule;
+import org.bubblecloud.ilves.module.customer.CustomerModule;
+import org.bubblecloud.ilves.server.jetty.DefaultJettyConfiguration;
+import org.bubblecloud.ilves.site.view.valo.DefaultValoView;
 import org.eclipse.jetty.server.Server;
-import org.vaadin.addons.sitekit.jetty.DefaultJettyConfiguration;
-import org.vaadin.addons.sitekit.site.*;
-import org.vaadin.addons.sitekit.util.PropertiesUtil;
+import org.bubblecloud.ilves.site.*;
+import org.bubblecloud.ilves.util.PropertiesUtil;
 
 /**
  * Seed main class.
@@ -32,8 +38,9 @@ public class HootMain {
     /** The persistence unit to be used. */
     public static final String PERSISTENCE_UNIT = "hoot";
     /** The localization bundle. */
-    public static final String LOCALIZATION_BUNDLE = "hoot-localization";
-
+    public static final String LOCALIZATION_BUNDLE_PREFIX = "hoot-localization";
+    /** The properties file prefix.*/
+    public static final String PROPERTIES_FILE_PREFIX = "site";
     /**
      * Main method for tutorial site.
      *
@@ -41,10 +48,16 @@ public class HootMain {
      * @throws Exception if exception occurs in jetty startup.
      */
     public static void main(final String[] args) throws Exception {
-        PropertiesUtil.setCategoryRedirection("site", "hoot");
+        // Configure logging.
+        DOMConfigurator.configure("log4j.xml");
 
-        // The default Jetty server configuration.
-        final Server server = DefaultJettyConfiguration.configureServer(PERSISTENCE_UNIT, LOCALIZATION_BUNDLE);
+        // Construct jetty server.
+        final Server server = Ilves.configure(PROPERTIES_FILE_PREFIX, LOCALIZATION_BUNDLE_PREFIX, PERSISTENCE_UNIT);
+
+        // Initialize modules
+        Ilves.initializeModule(AuditModule.class);
+        Ilves.initializeModule(CustomerModule.class);
+        Ilves.initializeModule(ContentModule.class);
 
         // Get default site descriptor.
         final SiteDescriptor siteDescriptor = DefaultSiteUI.getContentProvider().getSiteDescriptor();
@@ -53,7 +66,7 @@ public class HootMain {
 
         final String dashboardPage = "dashboard";
         // Describe custom view.
-        final ViewDescriptor commentView = new ViewDescriptor(dashboardPage, DefaultView.class);
+        final ViewDescriptor commentView = new ViewDescriptor(dashboardPage, DefaultValoView.class);
         commentView.setViewerRoles("administrator");
         siteDescriptor.getViewDescriptors().add(commentView);
         // Place example viewlet to content slot in the view.
@@ -64,8 +77,13 @@ public class HootMain {
         navigationVersion.setDefaultPageName(dashboardPage);
         navigationVersion.addRootPage(0, dashboardPage);
 
+        Ilves.setDefaultPage("dashboard");
+
         // Start server.
         server.start();
+
+        // Wait for exit of the Jetty server.
+        server.join();
 
         final HootSynchronizer translationSynchronizer = new HootSynchronizer(
                 DefaultSiteUI.getEntityManagerFactory().createEntityManager());
