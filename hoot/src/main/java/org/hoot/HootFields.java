@@ -149,6 +149,11 @@ public final class HootFields {
                 TimestampField.class, new TimestampConverter(),
                 150, null, Date.class, null,
                 true, true, true));
+        HootFields.add(Entry.class, new FieldDescriptor(
+                "deleted", "Deleted",
+                TimestampField.class, new TimestampConverter(),
+                150, null, Date.class, null,
+                true, true, true));
 
     }
 }

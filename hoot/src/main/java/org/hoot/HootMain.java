@@ -82,9 +82,6 @@ public class HootMain {
         // Start server.
         server.start();
 
-        // Wait for exit of the Jetty server.
-        server.join();
-
         final HootSynchronizer translationSynchronizer = new HootSynchronizer(
                 DefaultSiteUI.getEntityManagerFactory().createEntityManager());
 

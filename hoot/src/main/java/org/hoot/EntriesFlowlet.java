@@ -155,8 +155,81 @@ public final class EntriesFlowlet extends AbstractFlowlet {
 
             @Override
             public void buttonClick(final ClickEvent event) {
-                container.removeItem(grid.getSelectedItemId());
-                container.commit();
+                final Entry entity = container.getEntity(grid.getSelectedItemId());
+                entity.setDeleted(new Date());
+                entity.setAuthor(getSite().getSecurityProvider().getUser());
+                entityManager.getTransaction().begin();
+                try {
+                    entityManager.persist(entityManager.merge(entity));
+                    entityManager.getTransaction().commit();
+                } catch (final Exception e) {
+                    if (entityManager.getTransaction().isActive()) {
+                        entityManager.getTransaction().rollback();
+                    }
+                    throw new RuntimeException(e);
+                }
+                container.refresh();
+            }
+        });
+
+        final Button unRemoveButton = getSite().getButton("unremove");
+        buttonLayout.addComponent(unRemoveButton);
+        unRemoveButton.addClickListener(new ClickListener() {
+            /** Serial version UID. */
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void buttonClick(final ClickEvent event) {
+                final Entry entity = container.getEntity(grid.getSelectedItemId());
+                entity.setDeleted(null);
+                entity.setAuthor(getSite().getSecurityProvider().getUser());
+                entityManager.getTransaction().begin();
+                try {
+                    entityManager.persist(entityManager.merge(entity));
+                    entityManager.getTransaction().commit();
+                } catch (final Exception e) {
+                    if (entityManager.getTransaction().isActive()) {
+                        entityManager.getTransaction().rollback();
+                    }
+                    throw new RuntimeException(e);
+                }
+                container.refresh();
+            }
+        });
+/*
+        final Button permanentRemoveButton = getSite().getButton("permanent-remove");
+        buttonLayout.addComponent(permanentRemoveButton);
+        permanentRemoveButton.addClickListener(new ClickListener() {
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void buttonClick(final ClickEvent event) {
+                final Entry entity = container.getEntity(grid.getSelectedItemId());
+                entity.setDeleted(null);
+                entityManager.getTransaction().begin();
+                try {
+                    entityManager.remove(entityManager.merge(entity));
+                    entityManager.getTransaction().commit();
+                } catch (final Exception e) {
+                    if (entityManager.getTransaction().isActive()) {
+                        entityManager.getTransaction().rollback();
+                    }
+                    throw new RuntimeException(e);
+                }
+                container.refresh();
+            }
+        });
+*/
+
+        final Button synchronizeButton = getSite().getButton("synchronize");
+        buttonLayout.addComponent(synchronizeButton);
+        synchronizeButton.addClickListener(new ClickListener() {
+            /** Serial version UID. */
+            private static final long serialVersionUID = 1L;
+
+            @Override
+            public void buttonClick(final ClickEvent event) {
+                HootSynchronizer.startSynchronize();
             }
         });
 

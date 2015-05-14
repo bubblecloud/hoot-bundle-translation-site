@@ -66,6 +66,12 @@ public class HootSynchronizer {
      */
     private boolean shutdown = false;
 
+    private static long lastTimeMillis;
+
+    public static void startSynchronize() {
+        HootSynchronizer.lastTimeMillis = 0;
+    }
+
     /**
      * Constructor which starts synchronizer.
      *
@@ -81,7 +87,7 @@ public class HootSynchronizer {
         thread = new Thread(new Runnable() {
             @Override
             public void run() {
-                long lastTimeMillis = System.currentTimeMillis();
+                lastTimeMillis = System.currentTimeMillis();
                 lastTimeMillis = lastTimeMillis - lastTimeMillis % synchronizePeriodMillis;
 
                 while (!shutdown) {
@@ -250,17 +256,19 @@ public class HootSynchronizer {
                             final PrintWriter printWriter = new PrintWriter(writer);
 
                             for (final Entry entry : query.getResultList()) {
-                                printWriter.print("# Modified: ");
-                                printWriter.print(format.format(entry.getModified()));
-                                if (entry.getAuthor() != null) {
-                                    printWriter.print(" Author: ");
-                                    printWriter.print(entry.getAuthor());
+                                if (entry.getDeleted() == null) {
+                                    printWriter.print("# Modified: ");
+                                    printWriter.print(format.format(entry.getModified()));
+                                    if (entry.getAuthor() != null) {
+                                        printWriter.print(" Author: ");
+                                        printWriter.print(entry.getAuthor());
+                                    }
+                                    printWriter.println();
+                                    printWriter.print(entry.getKey());
+                                    printWriter.print("=");
+                                    final String value = entry.getValue().replace("\n", "\\n");
+                                    printWriter.println(value);
                                 }
-                                printWriter.println();
-                                printWriter.print(entry.getKey());
-                                printWriter.print("=");
-                                final String value = entry.getValue().replace("\n", "\\n");
-                                printWriter.println(value);
                             }
 
                             printWriter.flush();

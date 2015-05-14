@@ -44,4 +44,9 @@
     <changeSet author="tommilaukkanen (generated)" id="1412938286055-3">
         <addForeignKeyConstraint baseColumnNames="owner_companyid" baseTableName="entry" constraintName="fk_entry_owner_companyid" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="companyid" referencedTableName="company"/>
     </changeSet>
+    <changeSet author="tlaukkan (generated)" id="1431622025583-1">
+        <addColumn tableName="entry">
+            <column name="deleted" type="timestamp(29, 6)"/>
+        </addColumn>
+    </changeSet>
 </databaseChangeLog>

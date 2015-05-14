@@ -89,6 +89,12 @@ public final class Entry implements Serializable {
     @Column(nullable = false)
     private Date modified;
 
+    /** Created time of the event. */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = true)
+    private Date deleted;
+
+
     /**
      * The default constructor for JPA.
      */
@@ -248,6 +254,20 @@ public final class Entry implements Serializable {
      */
     public void setModified(final Date modified) {
         this.modified = modified;
+    }
+
+    /**
+     * @return the modified
+     */
+    public Date getDeleted() {
+        return deleted;
+    }
+
+    /**
+     * @param deleted the modified to set
+     */
+    public void setDeleted(final Date deleted) {
+        this.deleted = deleted;
     }
 
     @Override
